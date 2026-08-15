@@ -4,6 +4,8 @@
 
 Previously, each stream (Old Testament, Psalms, Wisdom, New Testament) wrapped back to the start once it reached the end of its book list, regardless of the multiplier setting. This caused two problems: a stream would often hit day 365 mid-cycle, cutting off in the middle of a book, and the multiplier itself was being ignored for completion purposes, a stream would finish after a single pass through its books no matter how high the multiplier was set (a 6x New Testament setting was completing in 52 days instead of running six full read-throughs across the year).
 
+Clarified language throughout describing a 365 day plan.  It will often be the case that you complete the read-through before 365 days have passed.  This plan is then one that will result in completion of your plan within a 365 day time box but not necessarily take the entire year to complete.
+
 **What changed:**
 
 - Each stream now calculates its full target as total chapters × multiplier (e.g., New Testament at 6x = 260 chapters × 6 = 1,560 chapters to read across the year).
