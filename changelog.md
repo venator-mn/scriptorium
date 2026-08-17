@@ -3,7 +3,7 @@
 ## Lectio Continua — Five-Track Overhaul
 
 **Added**
-- Split the single "Old Testament" track into two: **History** (Genesis through Job) and **Prophets** (Isaiah through Malachi). Job now lives in History rather than Wisdom.
+- Split the single "Old Testament" track into two: **History**, **Prophets**, **Psalms**, and **Wisdom**. 
 - New **Synchronize** option (checked by default) that makes all five tracks — History, Psalms, Wisdom, Prophets, New Testament — finish on the same day. Day 1 and the final day always carry a reading from every track; shorter tracks pick up occasional off days as they stretch to match the longest one.
 - Plan output now shows a single "This plan completes on Day X" line reflecting whichever track naturally runs longest.
 
