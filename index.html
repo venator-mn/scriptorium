@@ -1172,7 +1172,7 @@
     <p class="section-label">Build Your Plan</p>
     <h2>Choose Your Pace</h2>
     <div class="ornamental-rule"><span>✦ ✦ ✦</span></div>
-    <p>Pick a canon and how many times you'd like to read through each track (History, Psalms, Wisdom, Prophets, and New Testament) this year. History runs from Genesis through Job; Wisdom covers Proverbs, Ecclesiastes, and Song of Solomon (plus Wisdom and Sirach in the Catholic canon); Prophets covers Isaiah through Malachi. This plan is built around finishing chapters, books and tracks, not spreading evenly verse by verse.</p>
+    <p>Pick a canon and how many times you'd like to read through each track (History, Psalms, Wisdom, Prophets, and New Testament) this year. History runs from Genesis through Esther; Wisdom covers Job, Proverbs, Ecclesiastes, and Song of Solomon (plus Wisdom and Sirach in the Catholic canon); Prophets covers Isaiah through Malachi. This plan is built around finishing chapters, books and tracks, not spreading evenly verse by verse.</p>
     <p>In practice, every day rounds up to a full chapter rather than stopping mid-thought. By default all five tracks are synchronized to finish together: day 1 and the final day always carry a reading from every track, and shorter tracks pick up occasional off days so they stretch to match the longest one. Uncheck the synchronize option below if you'd rather have each track run at its own pace and go quiet with a simple em dash once it's done, that's not a flaw to smooth over either, it's what gives you the freedom to decide, track by track, how much of this year belongs to each part of the story.</p>
 
     <div class="plan-settings">
@@ -1188,7 +1188,7 @@
         <div class="ot-group">
           <div class="multiplier-grid">
             <div class="mult-field">
-              <span class="mult-name">History <span style="font-weight:300; color:var(--ink-faint);">(incl. Job)</span></span>
+              <span class="mult-name">History</span>
               <div class="mult-input-row"><input type="number" id="mult-hist" min="1" max="20" value="1"><span class="mult-suffix">×</span></div>
             </div>
             <div class="mult-field">
@@ -1318,14 +1318,14 @@ var HISTORY_BOOKS_PROTESTANT = [
   ['Genesis',50],['Exodus',40],['Leviticus',27],['Numbers',36],['Deuteronomy',34],
   ['Joshua',24],['Judges',21],['Ruth',4],['1 Samuel',31],['2 Samuel',24],
   ['1 Kings',22],['2 Kings',25],['1 Chronicles',29],['2 Chronicles',36],['Ezra',10],
-  ['Nehemiah',13],['Esther',10],['Job',42]
+  ['Nehemiah',13],['Esther',10]
 ];
 var HISTORY_BOOKS_CATHOLIC = [
   ['Genesis',50],['Exodus',40],['Leviticus',27],['Numbers',36],['Deuteronomy',34],
   ['Joshua',24],['Judges',21],['Ruth',4],['1 Samuel',31],['2 Samuel',24],
   ['1 Kings',22],['2 Kings',25],['1 Chronicles',29],['2 Chronicles',36],['Ezra',10],
   ['Nehemiah',13],['Tobit',14],['Judith',16],['Esther',16],['1 Maccabees',16],
-  ['2 Maccabees',15],['Job',42]
+  ['2 Maccabees',15]
 ];
 var PROPHETS_BOOKS_PROTESTANT = [
   ['Isaiah',66],['Jeremiah',52],['Lamentations',5],['Ezekiel',48],['Daniel',12],
@@ -1347,8 +1347,8 @@ var NT_BOOKS = [
   ['Jude',1],['Revelation',22]
 ];
 var PSALMS_BOOKS = [['Psalms', 150]];
-var WISDOM_BOOKS_PROTESTANT = [['Proverbs', 31],['Ecclesiastes', 12],['Song of Solomon', 8]];
-var WISDOM_BOOKS_CATHOLIC = [['Proverbs', 31],['Ecclesiastes', 12],['Song of Solomon', 8],['Wisdom', 19],['Sirach', 51]];
+var WISDOM_BOOKS_PROTESTANT = [['Job', 42],['Proverbs', 31],['Ecclesiastes', 12],['Song of Solomon', 8]];
+var WISDOM_BOOKS_CATHOLIC = [['Job', 42],['Proverbs', 31],['Ecclesiastes', 12],['Song of Solomon', 8],['Wisdom', 19],['Sirach', 51]];
 var PLAN_DAYS = 365;
 
 function buildFlatList(bookArr) {
