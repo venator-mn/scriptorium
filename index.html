@@ -492,9 +492,14 @@
   .canon-btn.active { background: var(--ink); color: var(--kw-bg); }
   .canon-btn:not(.active):hover { background: var(--parchment-dark); color: var(--ink-mid); }
 
-  .multiplier-grid {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.1rem;
+  .ot-group {
+    border: 1px solid var(--parchment-dark); border-radius: 6px;
+    padding: 1.1rem 1.3rem; margin-bottom: 1rem; background: rgba(255,255,255,0.4);
   }
+  .multiplier-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem;
+  }
+  .multiplier-grid.flank-grid { grid-template-columns: repeat(2, 1fr); margin-bottom: 0; }
   .mult-field { display: flex; flex-direction: column; gap: 0.4rem; }
   .mult-field .mult-name {
     font-size: 0.78rem; font-weight: 700; color: var(--ink-mid);
@@ -509,6 +514,17 @@
   }
   .mult-field input[type="number"]:focus { outline: 2px solid var(--cn-bg); outline-offset: 1px; }
   .mult-suffix { font-size: 0.8rem; color: var(--ink-faint); }
+
+  .sync-row {
+    display: flex; align-items: flex-start; gap: 0.6rem;
+    margin-top: 1.5rem; font-size: 0.86rem; color: var(--ink-mid);
+  }
+  .sync-row input { width: 16px; height: 16px; margin-top: 0.2rem; flex-shrink: 0; }
+  .plan-complete-line {
+    font-family: 'Source Serif 4', serif; font-style: italic; font-size: 0.95rem;
+    color: var(--ink-light); margin: -1.5rem 0 2rem;
+  }
+  .plan-complete-line strong { color: var(--ink); font-style: normal; }
 
   .plan-controls { display: flex; gap: 0.75rem; margin-top: 1.75rem; flex-wrap: wrap; }
   .btn {
@@ -573,10 +589,11 @@
     display: inline-block; width: 0.9rem; height: 0.9rem;
     border: 1.4px solid var(--ink-faint); border-radius: 2px; background: #fffdf9;
   }
-  .plan-table td.ot-col { color: var(--green-bg); }
+  .plan-table td.hist-col { color: var(--green-bg); }
   .plan-table td.ps-col { color: var(--burg-bg); }
-  .plan-table td.wis-col { color: #2a6b2a; }
-  .plan-table td.nt-col { color: var(--navy-bg); }
+  .plan-table td.wis-col { color: var(--a-mid); }
+  .plan-table td.proph-col { color: var(--navy-bg); }
+  .plan-table td.nt-col { color: var(--cp-bg); }
 
   .plan-hint { font-size: 0.85rem; color: var(--ink-faint); margin: -1.5rem 0 2rem; }
 
@@ -605,7 +622,7 @@
     .plan-table tr { page-break-inside: avoid; }
     .plan-table tr:nth-child(even) td { background: #f5f5f5 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .plan-table td, .plan-table th { border: 1px solid #bbb; padding: 3px 5px; }
-    .plan-table td.ot-col, .plan-table td.ps-col, .plan-table td.wis-col, .plan-table td.nt-col { color: #111; }
+    .plan-table td.hist-col, .plan-table td.ps-col, .plan-table td.wis-col, .plan-table td.proph-col, .plan-table td.nt-col { color: #111; }
     a[href]::after { content: ""; }
   }
 </style>
@@ -1156,8 +1173,8 @@
     <p class="section-label">Build Your Plan</p>
     <h2>Choose Your Pace</h2>
     <div class="ornamental-rule"><span>✦ ✦ ✦</span></div>
-    <p>Pick a canon and how many times you'd like to read through each track (Old Testament, Psalms, Wisdom, and New Testament) this year. This plan is built around finishing chapters, books and tracks, not spreading evenly verse by verse.</p>
-    <p>In practice, every day rounds up to a full chapter rather than stopping mid-thought, so tracks will often complete at different points in the year, and each one goes quiet with a simple em dash once it does. That's not a flaw to smooth over, it's what makes room for something most plans don't offer: the freedom to decide, track by track, how much of this year belongs to each part of the story, and to return to any of them again once they're done.</p>
+    <p>Pick a canon and how many times you'd like to read through each track (History, Psalms, Wisdom, Prophets, and New Testament) this year. History runs from Genesis through Job; Wisdom covers Proverbs, Ecclesiastes, and Song of Solomon (plus Wisdom and Sirach in the Catholic canon); Prophets covers Isaiah through Malachi. This plan is built around finishing chapters, books and tracks, not spreading evenly verse by verse.</p>
+    <p>In practice, every day rounds up to a full chapter rather than stopping mid-thought. By default all five tracks are synchronized to finish together: day 1 and the final day always carry a reading from every track, and shorter tracks pick up occasional off days so they stretch to match the longest one. Uncheck the synchronize option below if you'd rather have each track run at its own pace and go quiet with a simple em dash once it's done, that's not a flaw to smooth over either, it's what gives you the freedom to decide, track by track, how much of this year belongs to each part of the story.</p>
 
     <div class="plan-settings">
       <div class="setting-group">
@@ -1169,24 +1186,36 @@
       </div>
       <div class="setting-group">
         <span class="setting-label">Read-Throughs This Year</span>
-        <div class="multiplier-grid">
-          <div class="mult-field">
-            <span class="mult-name">Old Testament</span>
-            <div class="mult-input-row"><input type="number" id="mult-ot" min="1" max="20" value="1"><span class="mult-suffix">×</span></div>
+        <div class="ot-group">
+          <div class="multiplier-grid">
+            <div class="mult-field">
+              <span class="mult-name">History <span style="font-weight:300; color:var(--ink-faint);">(incl. Job)</span></span>
+              <div class="mult-input-row"><input type="number" id="mult-hist" min="1" max="20" value="1"><span class="mult-suffix">×</span></div>
+            </div>
+            <div class="mult-field">
+              <span class="mult-name">Wisdom</span>
+              <div class="mult-input-row"><input type="number" id="mult-wis" min="1" max="52" value="1"><span class="mult-suffix">×</span></div>
+            </div>
+            <div class="mult-field">
+              <span class="mult-name">Prophets</span>
+              <div class="mult-input-row"><input type="number" id="mult-proph" min="1" max="20" value="1"><span class="mult-suffix">×</span></div>
+            </div>
           </div>
+        </div>
+        <div class="multiplier-grid flank-grid">
           <div class="mult-field">
             <span class="mult-name">Psalms</span>
             <div class="mult-input-row"><input type="number" id="mult-ps" min="1" max="52" value="1"><span class="mult-suffix">×</span></div>
-          </div>
-          <div class="mult-field">
-            <span class="mult-name">Wisdom</span>
-            <div class="mult-input-row"><input type="number" id="mult-wis" min="1" max="52" value="1"><span class="mult-suffix">×</span></div>
           </div>
           <div class="mult-field">
             <span class="mult-name">New Testament</span>
             <div class="mult-input-row"><input type="number" id="mult-nt" min="1" max="20" value="1"><span class="mult-suffix">×</span></div>
           </div>
         </div>
+        <label class="sync-row">
+          <input type="checkbox" id="sync-toggle" checked>
+          <span>Synchronize all tracks to finish on the same day. Day 1 and the final day always carry a reading from every track; shorter tracks spread out across the year, with some off days in between, rather than finishing early and going quiet.</span>
+        </label>
       </div>
       <div class="plan-controls">
         <button type="button" class="btn btn-primary" id="btn-generate">Generate Plan</button>
@@ -1202,15 +1231,17 @@
     <h2>One Year, Your Pace</h2>
     <div class="ornamental-rule"><span>✦ ✦ ✦</span></div>
     <p class="plan-hint">Start on Day 1 whenever you like, print it, and check off each row by hand as you go.</p>
+    <p class="plan-complete-line" id="plan-complete-line">This plan completes on <strong id="plan-complete-day">—</strong></p>
 
     <div class="front-matter" id="front-matter">
       <p class="fm-title">Lectio Continua</p>
       <p class="fm-sub">A Year&#8209;Paced Reading Plan</p>
       <div class="fm-grid">
         <div class="fm-row"><span class="fm-k">Canon</span><span class="fm-v" id="fm-canon">—</span></div>
-        <div class="fm-row"><span class="fm-k">Old Testament</span><span class="fm-v" id="fm-ot">—</span></div>
+        <div class="fm-row"><span class="fm-k">History</span><span class="fm-v" id="fm-hist">—</span></div>
         <div class="fm-row"><span class="fm-k">Psalms</span><span class="fm-v" id="fm-ps">—</span></div>
         <div class="fm-row"><span class="fm-k">Wisdom</span><span class="fm-v" id="fm-wis">—</span></div>
+        <div class="fm-row"><span class="fm-k">Prophets</span><span class="fm-v" id="fm-proph">—</span></div>
         <div class="fm-row"><span class="fm-k">New Testament</span><span class="fm-v" id="fm-nt">—</span></div>
       </div>
       <p class="fm-startline">Started on: <span class="fill">&nbsp;</span></p>
@@ -1223,9 +1254,10 @@
           <tr>
             <th class="col-check"></th>
             <th class="col-day">Day</th>
-            <th>Old Testament</th>
+            <th>History</th>
             <th>Psalms</th>
             <th>Wisdom</th>
+            <th>Prophets</th>
             <th>New Testament</th>
           </tr>
         </thead>
@@ -1285,21 +1317,25 @@
    Mined and verified against the original hand-built plan.
    Each track is a full pass through its books, in canonical order.
    ============================================================ */
-var PROTESTANT_OT = [
+var HISTORY_BOOKS_PROTESTANT = [
   ['Genesis',50],['Exodus',40],['Leviticus',27],['Numbers',36],['Deuteronomy',34],
   ['Joshua',24],['Judges',21],['Ruth',4],['1 Samuel',31],['2 Samuel',24],
   ['1 Kings',22],['2 Kings',25],['1 Chronicles',29],['2 Chronicles',36],['Ezra',10],
-  ['Nehemiah',13],['Esther',10],['Job',42],
-  ['Isaiah',66],['Jeremiah',52],['Lamentations',5],['Ezekiel',48],['Daniel',12],
-  ['Hosea',14],['Joel',3],['Amos',9],['Obadiah',1],['Jonah',4],['Micah',7],
-  ['Nahum',3],['Habakkuk',3],['Zephaniah',3],['Haggai',2],['Zechariah',14],['Malachi',4]
+  ['Nehemiah',13],['Esther',10],['Job',42]
 ];
-var CATHOLIC_OT = [
+var HISTORY_BOOKS_CATHOLIC = [
   ['Genesis',50],['Exodus',40],['Leviticus',27],['Numbers',36],['Deuteronomy',34],
   ['Joshua',24],['Judges',21],['Ruth',4],['1 Samuel',31],['2 Samuel',24],
   ['1 Kings',22],['2 Kings',25],['1 Chronicles',29],['2 Chronicles',36],['Ezra',10],
   ['Nehemiah',13],['Tobit',14],['Judith',16],['Esther',16],['1 Maccabees',16],
-  ['2 Maccabees',15],['Job',42],
+  ['2 Maccabees',15],['Job',42]
+];
+var PROPHETS_BOOKS_PROTESTANT = [
+  ['Isaiah',66],['Jeremiah',52],['Lamentations',5],['Ezekiel',48],['Daniel',12],
+  ['Hosea',14],['Joel',3],['Amos',9],['Obadiah',1],['Jonah',4],['Micah',7],
+  ['Nahum',3],['Habakkuk',3],['Zephaniah',3],['Haggai',2],['Zechariah',14],['Malachi',4]
+];
+var PROPHETS_BOOKS_CATHOLIC = [
   ['Isaiah',66],['Jeremiah',52],['Lamentations',5],['Baruch',6],
   ['Ezekiel',48],['Daniel',14],['Hosea',14],['Joel',3],['Amos',9],['Obadiah',1],
   ['Jonah',4],['Micah',7],['Nahum',3],['Habakkuk',3],['Zephaniah',3],['Haggai',2],
@@ -1348,15 +1384,16 @@ function formatDayReading(flat, startIdx, count) {
   return parts.join('; ');
 }
 
-// Builds one stream's day-by-day text. The stream wraps through its book
-// list as many times as needed to reach its multiplier target (e.g. 6 full
-// passes for a 6x New Testament), then stops for good. Once the target is
-// reached, remaining days are null so the caller can render an em dash.
-function buildStream(flat, perDay, targetChapters) {
+// Builds one stream's day-by-day text at a fixed natural pace: perDay
+// chapters every day, stopping for good once the target is reached. Used
+// both to find each stream's natural completion day, and (when sync is
+// off) to render the stream itself. Remaining days are null so the caller
+// can render an em dash.
+function buildStream(flat, perDay, targetChapters, totalDays) {
   var rows = [];
   var idx = 0;
   var completeDay = null;
-  for (var day = 1; day <= PLAN_DAYS; day++) {
+  for (var day = 1; day <= totalDays; day++) {
     if (idx >= targetChapters) {
       rows.push(null);
       continue;
@@ -1369,32 +1406,112 @@ function buildStream(flat, perDay, targetChapters) {
   return { rows: rows, completeDay: completeDay };
 }
 
-function generatePlan(canonKey, mOT, mPS, mWIS, mNT) {
-  var otBooks = canonKey === 'catholic' ? CATHOLIC_OT : PROTESTANT_OT;
+// Splits `total` whole units across `slots` slots as evenly as possible.
+// Some slots may get 0 if total < slots; some may get more than one if
+// total > slots. Order-preserving, deterministic.
+function distributeEvenly(total, slots) {
+  var counts = [];
+  for (var i = 0; i < slots; i++) counts.push(0);
+  if (slots <= 0 || total <= 0) return counts;
+  for (i = 0; i < slots; i++) {
+    counts[i] = Math.floor((i + 1) * total / slots) - Math.floor(i * total / slots);
+  }
+  return counts;
+}
+
+// Synchronized build: spreads `targetChapters` across exactly `days` days.
+// Day 1 and the final day are always guaranteed a reading (when the target
+// allows it); everything in between is spread as evenly as whole chapters
+// allow, which is where a shorter track's off days come from.
+function buildStreamSynced(flat, targetChapters, days) {
+  var rows = [];
+  if (targetChapters <= 0 || days <= 0) {
+    for (var d = 0; d < days; d++) rows.push(null);
+    return { rows: rows, completeDay: null };
+  }
+  var counts = [];
+  if (targetChapters === 1 || days === 1) {
+    counts.push(targetChapters);
+    for (var k = 1; k < days; k++) counts.push(0);
+  } else {
+    counts.push(1);
+    for (var m = 1; m < days - 1; m++) counts.push(0);
+    counts.push(1);
+    var interior = distributeEvenly(Math.max(0, targetChapters - 2), days - 2);
+    for (var i = 0; i < interior.length; i++) counts[i + 1] = interior[i];
+  }
+  var idx = 0, completeDay = null;
+  for (var day = 1; day <= days; day++) {
+    var take = counts[day - 1];
+    if (take > 0) {
+      rows.push(formatDayReading(flat, idx, take));
+      idx += take;
+      completeDay = day;
+    } else {
+      rows.push(null);
+    }
+  }
+  return { rows: rows, completeDay: completeDay };
+}
+
+function generatePlan(canonKey, mHist, mPS, mWIS, mProph, mNT, sync) {
+  var histBooks = canonKey === 'catholic' ? HISTORY_BOOKS_CATHOLIC : HISTORY_BOOKS_PROTESTANT;
   var wisBooks = canonKey === 'catholic' ? WISDOM_BOOKS_CATHOLIC : WISDOM_BOOKS_PROTESTANT;
-  var otFlat = buildFlatList(otBooks);
+  var prophBooks = canonKey === 'catholic' ? PROPHETS_BOOKS_CATHOLIC : PROPHETS_BOOKS_PROTESTANT;
+
+  var histFlat = buildFlatList(histBooks);
   var psFlat = buildFlatList(PSALMS_BOOKS);
   var wisFlat = buildFlatList(wisBooks);
+  var prophFlat = buildFlatList(prophBooks);
   var ntFlat = buildFlatList(NT_BOOKS);
 
-  var otPerDay = Math.max(1, Math.ceil(otFlat.length * mOT / PLAN_DAYS));
-  var psPerDay = Math.max(1, Math.ceil(psFlat.length * mPS / PLAN_DAYS));
-  var wisPerDay = Math.max(1, Math.ceil(wisFlat.length * mWIS / PLAN_DAYS));
-  var ntPerDay = Math.max(1, Math.ceil(ntFlat.length * mNT / PLAN_DAYS));
+  var histTarget = histFlat.length * mHist;
+  var psTarget = psFlat.length * mPS;
+  var wisTarget = wisFlat.length * mWIS;
+  var prophTarget = prophFlat.length * mProph;
+  var ntTarget = ntFlat.length * mNT;
 
-  var otStream = buildStream(otFlat, otPerDay, otFlat.length * mOT);
-  var psStream = buildStream(psFlat, psPerDay, psFlat.length * mPS);
-  var wisStream = buildStream(wisFlat, wisPerDay, wisFlat.length * mWIS);
-  var ntStream = buildStream(ntFlat, ntPerDay, ntFlat.length * mNT);
+  var histPerDay = Math.max(1, Math.ceil(histTarget / PLAN_DAYS));
+  var psPerDay = Math.max(1, Math.ceil(psTarget / PLAN_DAYS));
+  var wisPerDay = Math.max(1, Math.ceil(wisTarget / PLAN_DAYS));
+  var prophPerDay = Math.max(1, Math.ceil(prophTarget / PLAN_DAYS));
+  var ntPerDay = Math.max(1, Math.ceil(ntTarget / PLAN_DAYS));
+
+  // Natural completion day per stream, always computed the same way,
+  // regardless of sync — this is what decides where the whole plan ends.
+  var histNatural = buildStream(histFlat, histPerDay, histTarget, PLAN_DAYS).completeDay;
+  var psNatural = buildStream(psFlat, psPerDay, psTarget, PLAN_DAYS).completeDay;
+  var wisNatural = buildStream(wisFlat, wisPerDay, wisTarget, PLAN_DAYS).completeDay;
+  var prophNatural = buildStream(prophFlat, prophPerDay, prophTarget, PLAN_DAYS).completeDay;
+  var ntNatural = buildStream(ntFlat, ntPerDay, ntTarget, PLAN_DAYS).completeDay;
+
+  var planEndDay = Math.max(histNatural || 0, psNatural || 0, wisNatural || 0, prophNatural || 0, ntNatural || 0) || PLAN_DAYS;
+  var renderDays = sync ? planEndDay : PLAN_DAYS;
+
+  var histStream, psStream, wisStream, prophStream, ntStream;
+  if (sync) {
+    histStream = buildStreamSynced(histFlat, histTarget, renderDays);
+    psStream = buildStreamSynced(psFlat, psTarget, renderDays);
+    wisStream = buildStreamSynced(wisFlat, wisTarget, renderDays);
+    prophStream = buildStreamSynced(prophFlat, prophTarget, renderDays);
+    ntStream = buildStreamSynced(ntFlat, ntTarget, renderDays);
+  } else {
+    histStream = buildStream(histFlat, histPerDay, histTarget, renderDays);
+    psStream = buildStream(psFlat, psPerDay, psTarget, renderDays);
+    wisStream = buildStream(wisFlat, wisPerDay, wisTarget, renderDays);
+    prophStream = buildStream(prophFlat, prophPerDay, prophTarget, renderDays);
+    ntStream = buildStream(ntFlat, ntPerDay, ntTarget, renderDays);
+  }
 
   var rows = [];
-  for (var day = 1; day <= PLAN_DAYS; day++) {
+  for (var day = 1; day <= renderDays; day++) {
     var i = day - 1;
     rows.push({
       day: day,
-      ot: otStream.rows[i],
+      hist: histStream.rows[i],
       ps: psStream.rows[i],
       wis: wisStream.rows[i],
+      proph: prophStream.rows[i],
       nt: ntStream.rows[i]
     });
   }
@@ -1403,26 +1520,22 @@ function generatePlan(canonKey, mOT, mPS, mWIS, mNT) {
     rows: rows,
     meta: {
       canon: canonKey,
-      otPerDay: otPerDay, psPerDay: psPerDay, wisPerDay: wisPerDay, ntPerDay: ntPerDay,
-      otCompleteDay: otStream.completeDay,
-      psCompleteDay: psStream.completeDay,
-      wisCompleteDay: wisStream.completeDay,
-      ntCompleteDay: ntStream.completeDay
+      histPerDay: histPerDay, psPerDay: psPerDay, wisPerDay: wisPerDay, prophPerDay: prophPerDay, ntPerDay: ntPerDay,
+      planEndDay: planEndDay
     }
   };
-}
-
-function fmtComplete(perDay, completeDay, targetMult) {
-  return perDay + ' ch/day, complete by Day ' + completeDay + ' (' + targetMult + '×)';
 }
 
 function renderPlan(result) {
   var meta = result.meta;
   document.getElementById('fm-canon').textContent = meta.canon === 'catholic' ? 'Catholic — 73 Books' : 'Protestant — 66 Books';
-  document.getElementById('fm-ot').textContent = fmtComplete(meta.otPerDay, meta.otCompleteDay, document.getElementById('mult-ot').value);
-  document.getElementById('fm-ps').textContent = fmtComplete(meta.psPerDay, meta.psCompleteDay, document.getElementById('mult-ps').value);
-  document.getElementById('fm-wis').textContent = fmtComplete(meta.wisPerDay, meta.wisCompleteDay, document.getElementById('mult-wis').value);
-  document.getElementById('fm-nt').textContent = fmtComplete(meta.ntPerDay, meta.ntCompleteDay, document.getElementById('mult-nt').value);
+  document.getElementById('fm-hist').textContent = meta.histPerDay + ' ch/day';
+  document.getElementById('fm-ps').textContent = meta.psPerDay + ' ch/day';
+  document.getElementById('fm-wis').textContent = meta.wisPerDay + ' ch/day';
+  document.getElementById('fm-proph').textContent = meta.prophPerDay + ' ch/day';
+  document.getElementById('fm-nt').textContent = meta.ntPerDay + ' ch/day';
+
+  document.getElementById('plan-complete-day').textContent = 'Day ' + meta.planEndDay;
 
   var today = new Date();
   var dateStr = today.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
@@ -1430,15 +1543,15 @@ function renderPlan(result) {
 
   var tbody = document.getElementById('plan-tbody');
   var html = '';
-  var lastActiveDay = Math.max(meta.otCompleteDay, meta.psCompleteDay, meta.wisCompleteDay, meta.ntCompleteDay);
-  for (var i = 0; i < result.rows.length && result.rows[i].day <= lastActiveDay; i++) {
+  for (var i = 0; i < result.rows.length; i++) {
     var r = result.rows[i];
     html += '<tr>'
       + '<td class="col-check"><span class="check-box"></span></td>'
       + '<td class="col-day">Day ' + r.day + '</td>'
-      + '<td class="ot-col">' + (r.ot === null ? '—' : r.ot) + '</td>'
+      + '<td class="hist-col">' + (r.hist === null ? '—' : r.hist) + '</td>'
       + '<td class="ps-col">' + (r.ps === null ? '—' : r.ps) + '</td>'
       + '<td class="wis-col">' + (r.wis === null ? '—' : r.wis) + '</td>'
+      + '<td class="proph-col">' + (r.proph === null ? '—' : r.proph) + '</td>'
       + '<td class="nt-col">' + (r.nt === null ? '—' : r.nt) + '</td>'
       + '</tr>';
   }
@@ -1454,16 +1567,18 @@ function renderPlan(result) {
       return (isNaN(v) || v < 1) ? fallback : v;
     }
     return {
-      ot: readOne('mult-ot', 1),
+      hist: readOne('mult-hist', 1),
       ps: readOne('mult-ps', 1),
       wis: readOne('mult-wis', 1),
+      proph: readOne('mult-proph', 1),
       nt: readOne('mult-nt', 1)
     };
   }
 
   function regenerate() {
     var m = readMultipliers();
-    var result = generatePlan(currentCanon, m.ot, m.ps, m.wis, m.nt);
+    var sync = document.getElementById('sync-toggle').checked;
+    var result = generatePlan(currentCanon, m.hist, m.ps, m.wis, m.proph, m.nt, sync);
     renderPlan(result);
   }
 
@@ -1478,6 +1593,7 @@ function renderPlan(result) {
 
   document.getElementById('btn-generate').addEventListener('click', regenerate);
   document.getElementById('btn-print').addEventListener('click', function () { window.print(); });
+  document.getElementById('sync-toggle').addEventListener('change', regenerate);
 
   regenerate();
 })();
