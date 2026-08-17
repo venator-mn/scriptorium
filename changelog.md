@@ -1,6 +1,27 @@
-8-15-2026:
+# 8-16-2026:
 
-**Lectio Continua: reading streams now stop instead of looping**
+## Lectio Continua — Five-Track Overhaul
+
+**Added**
+- Split the single "Old Testament" track into two: **History** (Genesis through Job) and **Prophets** (Isaiah through Malachi). Job now lives in History rather than Wisdom.
+- New **Synchronize** option (checked by default) that makes all five tracks — History, Psalms, Wisdom, Prophets, New Testament — finish on the same day. Day 1 and the final day always carry a reading from every track; shorter tracks pick up occasional off days as they stretch to match the longest one.
+- Plan output now shows a single "This plan completes on Day X" line reflecting whichever track naturally runs longest.
+
+**Changed**
+- Reading-plan controls reorganized: History, Wisdom, and Prophets are grouped together, with Psalms and New Testament below.
+- Front-matter print card now lists chapters/day per track instead of completion dates, keeping the printed card focused on daily pace rather than a moving target.
+- Intro copy updated to describe all five tracks and the new sync behavior.
+- Plan table gained a Prophets column (7 columns total including checkbox and day).
+
+**Unchanged**
+- Whole-chapter ceiling-division pacing logic (the mechanism, not just default) — when synchronize is turned off, tracks still run at a fixed pace and go quiet with an em dash once done, exactly as before.
+- Catholic (73-book) / Protestant (66-book) canon toggle and all chapter-count data.
+
+---
+
+# 8-15-2026:
+
+## Lectio Continua: reading streams now stop instead of looping
 
 Previously, each stream (Old Testament, Psalms, Wisdom, New Testament) wrapped back to the start once it reached the end of its book list, regardless of the multiplier setting. This caused two problems: a stream would often hit day 365 mid-cycle, cutting off in the middle of a book, and the multiplier itself was being ignored for completion purposes, a stream would finish after a single pass through its books no matter how high the multiplier was set (a 6x New Testament setting was completing in 52 days instead of running six full read-throughs across the year).
 
