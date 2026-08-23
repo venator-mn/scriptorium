@@ -556,11 +556,15 @@
   .fm-row { display: flex; justify-content: space-between; gap: 1rem; }
   .fm-k { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); }
   .fm-v { font-family: 'Source Serif 4', serif; font-size: 0.95rem; color: var(--ink-mid); text-align: right; }
+  .fm-dates {
+    display: flex; gap: 2.5rem;
+    padding-top: 1.2rem; border-top: 1px dashed var(--parchment-dark);
+  }
   .fm-startline {
     font-family: 'Source Serif 4', serif; font-style: italic; font-size: 0.92rem;
-    color: var(--ink-light); padding-top: 1.2rem; border-top: 1px dashed var(--parchment-dark);
+    color: var(--ink-light); flex: 1;
   }
-  .fm-startline .fill { display: inline-block; min-width: 220px; border-bottom: 1px solid var(--ink-faint); }
+  .fm-startline .fill { display: inline-block; min-width: 160px; border-bottom: 1px solid var(--ink-faint); }
   .fm-generated { margin-top: 1rem; font-size: 0.72rem; color: var(--ink-faint); }
 
   /* Plan table */
@@ -599,6 +603,7 @@
   @media (max-width: 700px) {
     .multiplier-grid { grid-template-columns: 1fr 1fr; }
     .fm-grid { grid-template-columns: 1fr; }
+    .fm-dates { flex-direction: column; gap: 0.8rem; }
     .plan-table { font-size: 0.78rem; }
   }
 
@@ -613,14 +618,25 @@
     .hero { display: none !important; }
     .content, .content-wide { max-width: 100%; padding: 0; }
     .page-section { padding: 0; border: none; }
-    .front-matter { box-shadow: none; border: 1px solid #999; page-break-after: avoid; margin: 0 0 1.2rem; }
+
+    /* Front matter: title + start/completed dates only, sized down from the on-screen card */
+    .front-matter { box-shadow: none; border: 1px solid #999; page-break-after: avoid; margin: 0 0 1rem; padding: 1rem 1.3rem; }
+    .fm-title { font-size: 1.15rem; margin-bottom: 0.15rem; }
+    .fm-sub { font-size: 0.78rem; margin-bottom: 0.8rem; }
+    .fm-dates { padding-top: 0.8rem; }
+    .fm-startline { font-size: 0.8rem; }
+    .fm-startline .fill { min-width: 140px; }
+
     .plan-table-wrap { overflow: visible; margin: 0; }
-    .plan-table { font-size: 9.5px; }
+    /* border-collapse: separate avoids a Chrome/WebKit bug where page-break-inside
+       on <tr> is silently ignored when the table uses collapsed borders */
+    .plan-table { font-size: 9.5px; border-collapse: separate; border-spacing: 0; }
     .plan-table thead { display: table-header-group; }
     .plan-table th { background: #eee !important; color: #111 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    .plan-table tr { page-break-inside: avoid; }
+    .plan-table tr { page-break-inside: avoid; break-inside: avoid; }
     .plan-table tr:nth-child(even) td { background: #f5f5f5 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .plan-table td, .plan-table th { border: 1px solid #bbb; padding: 3px 5px; }
+    .plan-table td.col-day { font-family: 'Source Serif 4', serif; font-weight: 300; font-size: 9.5px; color: var(--ink-mid); }
     .plan-table td.hist-col, .plan-table td.ps-col, .plan-table td.wis-col, .plan-table td.proph-col, .plan-table td.nt-col { color: #111; }
     a[href]::after { content: ""; }
   }
@@ -1169,18 +1185,18 @@
 
 <section class="page-section" id="plan-build">
   <div class="content-wide">
-    <p class="section-label">Build Your Plan</p>
-    <h2>Choose Your Pace</h2>
-    <div class="ornamental-rule"><span>✦ ✦ ✦</span></div>
-    <p>Pick a canon and how many times you'd like to read through each track (History, Psalms, Wisdom, Prophets, and New Testament) this year. History runs from Genesis through Esther; Wisdom covers Job, Proverbs, Ecclesiastes, and Song of Solomon (plus Wisdom and Sirach in the Catholic canon); Prophets covers Isaiah through Malachi. This plan is built around finishing chapters, books and tracks, not spreading evenly verse by verse.</p>
-    <p>In practice, every day rounds up to a full chapter rather than stopping mid-thought. By default all five tracks are synchronized to finish together: day 1 and the final day always carry a reading from every track, and shorter tracks pick up occasional off days so they stretch to match the longest one. Uncheck the synchronize option below if you'd rather have each track run at its own pace and go quiet with a simple em dash once it's done, that's not a flaw to smooth over either, it's what gives you the freedom to decide, track by track, how much of this year belongs to each part of the story.</p>
+    <p class="section-label print-hide">Build Your Plan</p>
+    <h2 class="print-hide">Choose Your Pace</h2>
+    <div class="ornamental-rule print-hide"><span>✦ ✦ ✦</span></div>
+    <p class="print-hide">Pick a canon and how many times you'd like to read through each track (History, Psalms, Wisdom, Prophets, and New Testament) this year. History runs from Genesis through Esther; Wisdom covers Job, Proverbs, Ecclesiastes, and Song of Solomon (plus Wisdom and Sirach in the Catholic canon); Prophets covers Isaiah through Malachi. This plan is built around finishing chapters, books and tracks, not spreading evenly verse by verse.</p>
+    <p class="print-hide">In practice, every day rounds up to a full chapter rather than stopping mid-thought. By default all five tracks are synchronized to finish together: day 1 and the final day always carry a reading from every track, and shorter tracks pick up occasional off days so they stretch to match the longest one. Uncheck the synchronize option below if you'd rather have each track run at its own pace and go quiet with a simple em dash once it's done, that's not a flaw to smooth over either, it's what gives you the freedom to decide, track by track, how much of this year belongs to each part of the story.</p>
 
     <div class="plan-settings">
       <div class="setting-group">
         <span class="setting-label">Canon</span>
         <div class="canon-toggle-wrap">
-          <button type="button" class="canon-btn active" data-canon="catholic">Catholic — 73 Books</button>
-          <button type="button" class="canon-btn" data-canon="protestant">Protestant — 66 Books</button>
+          <button type="button" class="canon-btn active" data-canon="catholic">73 Book</button>
+          <button type="button" class="canon-btn" data-canon="protestant">66 Book</button>
         </div>
       </div>
       <div class="setting-group">
@@ -1224,16 +1240,16 @@
 
 <section class="page-section" id="plan-output">
   <div class="content-wide">
-    <p class="section-label">Your Plan</p>
-    <h2>One Year, Your Pace</h2>
-    <div class="ornamental-rule"><span>✦ ✦ ✦</span></div>
+    <p class="section-label print-hide">Your Plan</p>
+    <h2 class="print-hide">One Year, Your Pace</h2>
+    <div class="ornamental-rule print-hide"><span>✦ ✦ ✦</span></div>
     <p class="plan-hint">Start on Day 1 whenever you like, print it, and check off each row by hand as you go.</p>
-    <p class="plan-complete-line" id="plan-complete-line">This plan completes on <strong id="plan-complete-day">—</strong></p>
+    <p class="plan-complete-line print-hide" id="plan-complete-line">This plan completes on <strong id="plan-complete-day">—</strong></p>
 
     <div class="front-matter" id="front-matter">
       <p class="fm-title">Lectio Continua</p>
       <p class="fm-sub">A Year&#8209;Paced Reading Plan</p>
-      <div class="fm-grid">
+      <div class="fm-grid print-hide">
         <div class="fm-row"><span class="fm-k">Canon</span><span class="fm-v" id="fm-canon">—</span></div>
         <div class="fm-row"><span class="fm-k">History</span><span class="fm-v" id="fm-hist">—</span></div>
         <div class="fm-row"><span class="fm-k">Psalms</span><span class="fm-v" id="fm-ps">—</span></div>
@@ -1241,8 +1257,11 @@
         <div class="fm-row"><span class="fm-k">Prophets</span><span class="fm-v" id="fm-proph">—</span></div>
         <div class="fm-row"><span class="fm-k">New Testament</span><span class="fm-v" id="fm-nt">—</span></div>
       </div>
-      <p class="fm-startline">Started on: <span class="fill">&nbsp;</span></p>
-      <p class="fm-generated" id="fm-generated">Generated —</p>
+      <div class="fm-dates">
+        <p class="fm-startline">Start Date: <span class="fill">&nbsp;</span></p>
+        <p class="fm-startline">Completed Date: <span class="fill">&nbsp;</span></p>
+      </div>
+      <p class="fm-generated print-hide" id="fm-generated">Generated —</p>
     </div>
 
     <div class="plan-table-wrap">
@@ -1526,7 +1545,7 @@ function generatePlan(canonKey, mHist, mPS, mWIS, mProph, mNT, sync) {
 
 function renderPlan(result) {
   var meta = result.meta;
-  document.getElementById('fm-canon').textContent = meta.canon === 'catholic' ? 'Catholic — 73 Books' : 'Protestant — 66 Books';
+  document.getElementById('fm-canon').textContent = meta.canon === 'catholic' ? '73 Book' : '66 Book';
   document.getElementById('fm-hist').textContent = meta.histPerDay + ' ch/day';
   document.getElementById('fm-ps').textContent = meta.psPerDay + ' ch/day';
   document.getElementById('fm-wis').textContent = meta.wisPerDay + ' ch/day';
