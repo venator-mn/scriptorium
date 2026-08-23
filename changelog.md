@@ -1,3 +1,24 @@
+# 8-22-2026:
+## Lectio Continua — Print Layout Cleanup
+**Added**
+- New **Completed Date** fill-in line on the front-matter card, alongside a renamed **Start Date** (previously "Started on"), sitting side by side under one rule.
+
+**Changed**
+- Printed plan no longer includes the "Choose Your Pace" section (heading, intro copy, canon/multiplier controls) — screen view unaffected.
+- Printed plan no longer includes the "One Year, Your Pace" heading or the "This plan completes on Day X" line, now redundant with Completed Date.
+- Front-matter print card trimmed to **title, Start Date, and Completed Date only**; the chapters-per-track breakdown (Canon, History, Psalms, Wisdom, Prophets, New Testament) stays visible on screen but is hidden in print.
+- Front-matter title and subtitle sized down for print (screen view unchanged).
+- Day column in the printed table now matches the reading cells — same font, weight, size, and color — instead of standing out in bold Playfair Display. Header row stays bold as the per-page anchor.
+- Canon toggle buttons relabeled from "Catholic — 73 Books" / "Protestant — 66 Books" to **73 Book** / **66 Book**; front-matter's screen-only Canon field updated to match.
+
+**Fixed**
+- Table rows splitting across page breaks mid-checklist. Root cause was `border-collapse: collapse` silently defeating `page-break-inside: avoid` in Chrome/WebKit. Switched print table to `border-collapse: separate` and added the modern `break-inside: avoid` alongside the legacy property.
+
+**Unchanged**
+- Reading-plan generation logic, chapter-count data, and the synchronize toggle behavior — this pass was print/display only.
+  
+---
+
 # 8-16-2026:
 
 ## Lectio Continua — Five-Track Overhaul
