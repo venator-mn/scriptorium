@@ -1,3 +1,17 @@
+## 2026-08-25
+
+### Lectio Continua
+
+**Changed**
+- Print stylesheet: reading plan table font bumped 2pt (10.8px to 12.8px) for readability, cell padding and grid dimensions left unchanged
+- Day column no longer repeats the word "Day" per row (header already labels the column); cells now show just the number
+- Strengthened print row-break CSS (`break-inside: avoid-page` added alongside `page-break-inside: avoid`, applied to both `tr` and `td`)
+
+**Unchanged / Known limitations**
+- Row-splitting across page breaks in printed PDF still occurs in Safari and other WebKit-based browsers due to longstanding bugs in WebKit's table print pagination engine; confirmed working correctly in Brave (and by extension, Chromium-based browsers generally). Not pursuing a fix at this time, would require rebuilding the print table as CSS Grid rows instead of native `<table>` markup. Recommend generating the PDF from a Chromium browser for now.
+
+---
+
 # 8-22-2026:
 ## Lectio Continua — Print Layout Cleanup
 **Added**
