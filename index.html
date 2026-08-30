@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scriptorium — Inductio, SOAQ &amp; Lectio Continua</title>
+<title>Scriptorium — SOAQ &amp; Lectio Continua</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;1,300;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
   /* ============================================================
-     ROOT VARIABLES — merged from Inductio, SOAQ, and Lectio Continua
+     ROOT VARIABLES — shared across SOAQ and Lectio Continua
      ============================================================ */
   :root {
     --parchment:      #f5f0e8;
@@ -22,7 +22,7 @@
     --rule:           #c8b89a;
     --nav-h:          60px;
 
-    /* Inductio — marking-scheme colors */
+    /* Shared accent colors — used across nav, SOAQ, and Lectio Continua */
     --kw-bg:   #e8c84a;   --kw-mid:   #a8862a;
     --ls-bg:   #5b8a80;   --ls-pale:  #eaf2ef;
     --ct-bg:   #2b2620;   --ct-pale:  #efece6;
@@ -193,11 +193,11 @@
 <body>
 <style>
   /* ============================================================
-     HUB INTRO — Scriptorium framing, sits inside the Inductio view
+     HUB INTRO — Scriptorium framing, sits inside the home view
      ============================================================ */
   .hub-intro { padding-top: 4rem; }
   .hub-tools {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.3rem; margin-top: 2.2rem;
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.3rem; margin-top: 2.2rem;
   }
   .hub-tool-card {
     display: block;
@@ -220,137 +220,6 @@
   .hub-tool-desc { font-size: 0.88rem; color: var(--ink-light); margin: 0; line-height: 1.6; }
   @media (max-width: 900px) { .hub-tools { grid-template-columns: 1fr; } }
 
-  /* ============================================================
-     INDUCTIO — component styles (scoped by unique class names)
-     ============================================================ */
-  .principle-list { display: flex; flex-direction: column; gap: 1.1rem; margin: 2rem 0; }
-  .principle {
-    display: grid; grid-template-columns: 6px 1fr;
-    background: var(--parchment-mid);
-    border: 1px solid var(--parchment-dark);
-    border-radius: 3px; overflow: hidden;
-  }
-  .principle-bar { background: var(--rule); }
-  .principle-body { padding: 1.2rem 1.5rem; }
-  .principle h3 { margin-bottom: 0.35rem; font-size: 1.05rem; }
-  .principle p { font-size: 0.92rem; margin-bottom: 0; }
-  .principle-tag {
-    display: inline-block; font-size: 0.65rem; font-weight: 700;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    padding: 0.15rem 0.5rem; border-radius: 2px; margin-bottom: 0.5rem;
-  }
-
-  .p-kw  .principle-bar { background: var(--kw-bg); } .p-kw  .principle-tag { background: var(--kw-bg); color: var(--ink); }
-  .p-ls  .principle-bar { background: var(--ls-bg); } .p-ls  .principle-tag { background: var(--ls-bg); color: #fff; }
-  .p-ct  .principle-bar { background: var(--ct-bg); } .p-ct  .principle-tag { background: var(--ct-bg); color: #fff; }
-  .p-cn  .principle-bar { background: var(--cn-bg); } .p-cn  .principle-tag { background: var(--cn-bg); color: #fff; }
-  .p-cp  .principle-bar { background: var(--cp-bg); } .p-cp  .principle-tag { background: var(--cp-bg); color: #fff; }
-  .p-tm  .principle-bar { background: var(--tm-bg); } .p-tm  .principle-tag { background: var(--tm-bg); color: #fff; }
-  .p-geo .principle-bar { background: var(--geo-bg);} .p-geo .principle-tag { background: var(--geo-bg); color: #fff; }
-  .p-sp  .principle-bar { background: var(--sp-bg); } .p-sp  .principle-tag { background: var(--sp-bg); color: #fff; }
-  .p-plain .principle-bar { background: var(--ink-faint); }
-
-  .legend-grid {
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.9rem;
-    margin: 2rem 0;
-  }
-  .legend-item {
-    display: flex; align-items: flex-start; gap: 0.8rem;
-    background: var(--parchment-mid); border: 1px solid var(--parchment-dark);
-    border-radius: 3px; padding: 0.9rem 1.1rem;
-  }
-  .legend-swatch {
-    flex-shrink: 0; width: 30px; height: 30px; border-radius: 4px;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Playfair Display', serif; font-weight: 700; font-size: 0.9rem;
-  }
-  .legend-name { font-size: 0.85rem; font-weight: 700; color: var(--ink-mid); margin-bottom: 0.15rem; }
-  .legend-desc { font-size: 0.78rem; color: var(--ink-light); line-height: 1.5; }
-
-  .passage-frame {
-    background: #fffdf9;
-    border: 1px solid var(--parchment-dark);
-    border-radius: 4px;
-    box-shadow: 0 3px 18px rgba(30,26,20,0.08);
-    padding: 2.5rem 3rem;
-    margin: 2rem 0;
-    font-family: 'Source Serif 4', serif;
-  }
-  .passage-title {
-    font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.3rem;
-    margin-bottom: 1.6rem; color: var(--ink);
-  }
-  .passage-title .vers { font-style: italic; font-weight: 400; color: var(--ink-faint); font-size: 0.85rem; }
-  .verse { margin-bottom: 0.95rem; font-size: 1.02rem; line-height: 1.85; color: var(--ink-mid); }
-  .vnum { font-family: 'Lato', sans-serif; font-size: 0.72rem; font-weight: 700; color: var(--ink-faint); vertical-align: super; margin-right: 0.3rem; }
-
-  .mk-kw   { background: var(--kw-bg); padding: 0 3px; border-radius: 2px; }
-  .mk-ls   { text-decoration: underline; text-decoration-color: var(--ls-bg); text-decoration-thickness: 2px; text-underline-offset: 3px; }
-  .mk-num  { display: inline-flex; align-items: center; justify-content: center; width: 1.05em; height: 1.05em; border-radius: 50%; border: 1.5px solid var(--ls-bg); color: var(--ls-bg); font-size: 0.65em; font-weight: 700; margin-right: 0.25em; font-family: 'Lato', sans-serif; }
-  .mk-ct   { border-bottom: 2px solid var(--ct-bg); padding-bottom: 1px; }
-  .mk-cn   { border: 1.5px solid var(--cn-bg); border-radius: 3px; padding: 0 4px; color: var(--cn-bg); font-weight: 700; }
-  .mk-cp   { border: 1.5px solid var(--cp-bg); border-radius: 50%; padding: 0 8px; }
-  .mk-tm   { text-decoration: underline; text-decoration-style: dotted; text-decoration-color: var(--tm-bg); text-underline-offset: 3px; }
-  .mk-geo  { text-decoration: underline; text-decoration-style: double; text-decoration-color: var(--geo-bg); text-underline-offset: 3px; }
-  .mk-auth { color: var(--sp-bg); font-weight: 700; }
-  .mk-recp { text-decoration: underline; text-decoration-color: var(--sp-bg); text-decoration-style: wavy; text-underline-offset: 3px; }
-
-  .listout-card {
-    background: var(--ls-pale);
-    border-left: 4px solid var(--ls-bg);
-    border-radius: 0 3px 3px 0;
-    padding: 1.4rem 1.7rem;
-    margin: 2rem 0;
-  }
-  .listout-card .listout-title {
-    font-family: 'Playfair Display', serif; font-weight: 700; font-style: italic;
-    color: var(--ls-bg); margin-bottom: 0.7rem; font-size: 1.05rem;
-  }
-  .listout-card ol { padding-left: 1.3rem; }
-  .listout-card li { font-size: 0.9rem; color: var(--ink-mid); margin-bottom: 0.3rem; font-family: 'Source Serif 4', serif; }
-
-  .interp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.3rem; margin: 2rem 0; }
-  .interp-card {
-    background: var(--parchment-mid); border: 1px solid var(--parchment-dark);
-    border-radius: 3px; padding: 1.4rem 1.5rem;
-  }
-  .interp-num {
-    font-family: 'Playfair Display', serif; font-weight: 700; font-size: 0.85rem;
-    color: var(--cn-bg); margin-bottom: 0.4rem; letter-spacing: 0.05em;
-  }
-  .interp-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
-  .interp-card p { font-size: 0.86rem; margin: 0; line-height: 1.6; }
-
-  .example-entry {
-    background: white; border: 1px solid var(--parchment-dark); border-radius: 3px;
-    overflow: hidden; margin: 2rem 0; box-shadow: 0 2px 12px rgba(30,26,20,0.07);
-  }
-  .entry-header {
-    background: var(--ink); padding: 1rem 1.6rem;
-    font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700;
-    color: var(--parchment);
-  }
-  .entry-header span { color: var(--kw-bg); font-style: italic; font-weight: 400; font-size: 0.85rem; }
-  .entry-row { display: grid; grid-template-columns: 130px 1fr; border-bottom: 1px solid #f0ece4; }
-  .entry-row:last-child { border-bottom: none; }
-  .entry-tag {
-    padding: 1.1rem 1.2rem; font-family: 'Lato', sans-serif; font-size: 0.72rem;
-    font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-  }
-  .entry-row.row-o .entry-tag { color: var(--ls-bg); background: var(--ls-pale); }
-  .entry-row.row-i .entry-tag { color: var(--cn-bg); background: var(--cn-pale); }
-  .entry-row.row-a .entry-tag { color: var(--sp-bg); background: var(--sp-pale); }
-  .entry-text { padding: 1.1rem 1.4rem; font-size: 0.9rem; color: var(--ink-light); font-family: 'Source Serif 4', serif; font-weight: 300; line-height: 1.75; }
-  .entry-text em { font-style: italic; color: var(--ink-mid); }
-
-  @media (max-width: 700px) {
-    .legend-grid { grid-template-columns: 1fr; }
-    .interp-grid { grid-template-columns: 1fr; }
-    .passage-frame { padding: 1.7rem 1.3rem; }
-    .entry-row { grid-template-columns: 90px 1fr; }
-  }
-</style>
-<style>
   /* ============================================================
      SOAQ — component styles (scoped by unique class names)
      ============================================================ */
@@ -417,7 +286,7 @@
   .tip-card h3 { font-size: 1rem; margin-top: 0; margin-bottom: 0.5rem; color: var(--ink); }
   .tip-card p { font-size: 0.88rem; margin: 0; line-height: 1.65; }
 
-  /* SOAQ's own example-entry, namespaced to avoid colliding with Inductio's */
+  /* SOAQ's example-entry */
   .soaq-example-entry {
     background: white; border: 1px solid var(--parchment-dark); border-radius: 3px;
     overflow: hidden; margin: 2rem 0; box-shadow: 0 2px 12px rgba(30,26,20,0.07);
@@ -644,7 +513,6 @@
 <nav>
   <a class="nav-brand" href="#home" data-view-link="home">Scriptorium</a>
   <ul class="nav-links">
-    <li><a href="#inductio" data-view="inductio" data-view-link="inductio">Inductio</a></li>
     <li><a href="#soaq" data-view="soaq" data-view-link="soaq">SOAQ</a></li>
     <li><a href="#plan" data-view="plan" data-view-link="plan">Lectio Continua</a></li>
   </ul>
@@ -659,7 +527,7 @@
   <p class="hero-eyebrow fade-in">A Personal Bible Study Practice</p>
   <h1 class="hero-title fade-in">Scriptorium</h1>
   <p class="hero-subtitle fade-in">A room for observing, journaling, and reading through the text</p>
-  <p class="hero-tagline fade-in">Inductio <span>·</span> SOAQ <span>·</span> Lectio Continua</p>
+  <p class="hero-tagline fade-in">SOAQ <span>·</span> Lectio Continua</p>
 </header>
 
 <!-- HUB INTRO -->
@@ -668,15 +536,10 @@
     <p class="section-label">What This Is</p>
     <h2>A Room for Working the Text</h2>
     <div class="ornamental-rule"><span>✦ ✦ ✦</span></div>
-    <p>A scriptorium was the room in a monastery where texts were copied, studied, and annotated by hand, a working space for close attention to Scripture, not a display case for it. That's what this page is: a room with three tools in it, not three separate projects.</p>
-    <p><strong>Inductio</strong> is the method, the discipline of observation, interpretation, and application that structures the actual work of study. <strong>SOAQ</strong> is what you use while you're doing it, a journaling framework for getting what you're seeing onto the page. <strong>Lectio Continua</strong> is the reading plan that decides where to point all of it each day.</p>
+    <p>A scriptorium was the room in a monastery where texts were copied, studied, and annotated by hand, a working space for close attention to Scripture, not a display case for it. That's what this page is: a room with two tools in it, not two separate projects.</p>
+    <p><strong>SOAQ</strong> is the journaling framework, a discipline for getting what you're seeing in the text onto the page. <strong>Lectio Continua</strong> is the reading plan that decides where to point it each day.</p>
 
     <div class="hub-tools">
-      <a class="hub-tool-card" href="#inductio" data-view-link="inductio">
-        <p class="hub-tool-eyebrow">The Method</p>
-        <p class="hub-tool-name">Inductio</p>
-        <p class="hub-tool-desc">The three-step framework, observation, interpretation, application, that structures the actual work of study.</p>
-      </a>
       <a class="hub-tool-card" href="#soaq" data-view-link="soaq">
         <p class="hub-tool-eyebrow">The Journal</p>
         <p class="hub-tool-name">SOAQ</p>
@@ -692,254 +555,6 @@
 </section>
 
 </div><!-- /view-home -->
-
-<!-- ============================================================
-     VIEW: INDUCTIO
-     ============================================================ -->
-<div class="view" id="view-inductio">
-
-<header class="hero" id="ind-top">
-  <p class="hero-eyebrow fade-in">A Method for Personal Bible Study</p>
-  <h1 class="hero-title fade-in">Inductio</h1>
-  <p class="hero-subtitle fade-in">Observe what it says, before deciding what it means</p>
-  <p class="hero-tagline fade-in">Observation <span>·</span> Interpretation <span>·</span> Application</p>
-</header>
-
-<!-- OVERVIEW -->
-<section class="page-section" id="ind-overview">
-  <div class="content">
-    <p class="section-label">Overview</p>
-    <h2>Three Steps, Not Three Stages</h2>
-    <div class="ornamental-rule"><span>✦ ✦ ✦</span></div>
-    <p>The method has three steps: observation, interpretation, application. They're numbered here for clarity, not because you move through them once in strict order. In practice you circle back constantly, an observation two verses later reshapes an interpretation you already formed, and an application question sends you back to reread the text more carefully.</p>
-    <p>None of it substitutes for prayer. No method sharpens your eyes on its own, this is a set of habits for paying closer attention to the text, not a mechanism that produces understanding by itself.</p>
-  </div>
-</section>
-
-<!-- OBSERVATION -->
-<section class="page-section" id="ind-observation">
-  <div class="content">
-    <p class="section-label">Step One</p>
-    <h2>Observation — What Does the Text Say?</h2>
-    <div class="ornamental-rule"><span>✦ ✦ ✦</span></div>
-    <p>Before you interpret anything, slow down and register what's actually on the page. Ask the standard questions of every passage, who, what, when, where, why, how, and let the following categories train your eye to notice what's easy to read past.</p>
-
-    <div class="principle-list">
-      <div class="principle p-kw">
-        <div class="principle-bar"></div>
-        <div class="principle-body">
-          <span class="principle-tag">Key words</span>
-          <h3>Mark key words and synonyms</h3>
-          <p>A word the author leans on repeatedly is usually carrying his point. Track where it appears and how its use shifts across the passage.</p>
-        </div>
-      </div>
-      <div class="principle p-ls">
-        <div class="principle-bar"></div>
-        <div class="principle-body">
-          <span class="principle-tag">Lists</span>
-          <h3>Make lists</h3>
-          <p>When a passage enumerates things, pull the list out and number it. Also list what you learn about any key word or person as you go.</p>
-        </div>
-      </div>
-      <div class="principle p-ct">
-        <div class="principle-bar"></div>
-        <div class="principle-body">
-          <span class="principle-tag">Contrasts</span>
-          <h3>Watch for contrasts and comparisons</h3>
-          <p>Where the author sets two things against each other, or reaches for an image to describe something, that's usually load-bearing for the meaning.</p>
-        </div>
-      </div>
-      <div class="principle p-cn">
-        <div class="principle-bar"></div>
-        <div class="principle-body">
-          <span class="principle-tag">Conclusions</span>
-          <h3>Mark terms of conclusion</h3>
-          <p>"Therefore," "thus," "for this reason," these signal the author summing up an argument. Often the clearest single statement of his point.</p>
-        </div>
-      </div>
-      <div class="principle p-tm">
-        <div class="principle-bar"></div>
-        <div class="principle-body">
-          <span class="principle-tag">Time</span>
-          <h3>Note expressions of time</h3>
-          <p>Sequence and timing carry real interpretive weight, especially in narrative and prophecy. Mark "when," "after," "then," and the like.</p>
-        </div>
-      </div>
-      <div class="principle p-geo">
-        <div class="principle-bar"></div>
-        <div class="principle-body">
-          <span class="principle-tag">Geography</span>
-          <h3>Mark geographic locations</h3>
-          <p>Where an event happens can matter for understanding it, and it's easy to skim past.</p>
-        </div>
-      </div>
-      <div class="principle p-sp">
-        <div class="principle-bar"></div>
-        <div class="principle-body">
-          <span class="principle-tag">Speaker</span>
-          <h3>Mark author and recipients separately</h3>
-          <p>In epistles especially, keep track of who's writing and who's being addressed. It clarifies pronouns and grounds the letter's occasion.</p>
-        </div>
-      </div>
-      <div class="principle p-plain">
-        <div class="principle-bar"></div>
-        <div class="principle-body">
-          <h3>Identify the theme</h3>
-          <p>Once you've done the above, state the theme of the chapter or section as briefly as you can, ideally in the text's own words.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- MARKING KEY + MARKED PASSAGE -->
-<section class="page-section" id="ind-passage">
-  <div class="content-wide">
-    <p class="section-label">In Practice</p>
-    <h2>A Marked Passage</h2>
-    <div class="ornamental-rule"><span>✦ ✦ ✦</span></div>
-    <p>Marking a text is just a way of making your observation visible and reusable, so it's there on the page the next time you open it. The key below maps each observation category to a mark. Text is the King James Version, which is in the public domain.</p>
-
-    <div class="legend-grid">
-      <div class="legend-item"><span class="legend-swatch" style="background:var(--kw-bg); color:var(--ink);">Aa</span><div><div class="legend-name">Key words</div><div class="legend-desc">Highlighted — God, Christ, glory, grace, the devil</div></div></div>
-      <div class="legend-item"><span class="legend-swatch" style="background:var(--ls-bg); color:#fff;">①②</span><div><div class="legend-name">List items</div><div class="legend-desc">Numbered and underlined in sequence</div></div></div>
-      <div class="legend-item"><span class="legend-swatch" style="background:var(--ct-bg); color:#fff;">↔</span><div><div class="legend-name">Contrasts</div><div class="legend-desc">Underscored where two things are set against each other</div></div></div>
-      <div class="legend-item"><span class="legend-swatch" style="background:var(--cn-bg); color:#fff;">∴</span><div><div class="legend-name">Terms of conclusion</div><div class="legend-desc">Boxed — "therefore" and its kin</div></div></div>
-      <div class="legend-item"><span class="legend-swatch" style="background:var(--cp-bg); color:#fff;">≈</span><div><div class="legend-name">Comparisons</div><div class="legend-desc">Circled — "as a roaring lion"</div></div></div>
-      <div class="legend-item"><span class="legend-swatch" style="background:var(--tm-bg); color:#fff;">⏱</span><div><div class="legend-name">Expressions of time</div><div class="legend-desc">Dotted underline — "when," "after," "for ever"</div></div></div>
-      <div class="legend-item"><span class="legend-swatch" style="background:var(--geo-bg); color:#fff;">⌖</span><div><div class="legend-name">Geographic locations</div><div class="legend-desc">Double underline — Babylon</div></div></div>
-      <div class="legend-item"><span class="legend-swatch" style="background:var(--sp-bg); color:#fff;">✎</span><div><div class="legend-name">Author &amp; recipients</div><div class="legend-desc">Author bold, recipients in wavy underline</div></div></div>
-    </div>
-
-    <div class="passage-frame">
-      <p class="passage-title">1 Peter 5 <span class="vers">— King James Version</span></p>
-
-      <p class="verse"><span class="vnum">1</span>The elders which are among <span class="mk-recp">you</span> <span class="mk-auth">I</span> exhort, who am also an elder, and a witness of the sufferings of <span class="mk-kw">Christ</span>, and also a partaker of the <span class="mk-kw">glory</span> that shall be revealed:</p>
-
-      <p class="verse"><span class="vnum">2</span><span class="mk-num">1</span>Feed the flock of <span class="mk-kw">God</span> which is among you, <span class="mk-num">2</span>taking the oversight thereof, <span class="mk-num">3</span>not by constraint, but willingly; <span class="mk-num">4</span>not for filthy lucre, but of a ready mind;</p>
-
-      <p class="verse"><span class="vnum">3</span><span class="mk-ct">Neither as being lords over God's heritage</span>, but <span class="mk-ct">being ensamples to the flock</span>.</p>
-
-      <p class="verse"><span class="vnum">4</span>And <span class="mk-tm">when</span> the <span class="mk-kw">chief Shepherd</span> shall appear, ye shall receive a crown of <span class="mk-kw">glory</span> that fadeth not away.</p>
-
-      <p class="verse"><span class="vnum">5</span>Likewise, ye younger, submit yourselves unto the elder. Yea, all of you be subject one to another, and be clothed with humility: for <span class="mk-ct"><span class="mk-kw">God</span> resisteth the proud, and giveth <span class="mk-kw">grace</span> to the humble</span>.</p>
-
-      <p class="verse"><span class="vnum">6</span>Humble yourselves <span class="mk-cn">therefore</span> under the mighty hand of <span class="mk-kw">God</span>, that he may exalt you <span class="mk-tm">in due time</span>:</p>
-
-      <p class="verse"><span class="vnum">7</span>Casting all your care upon him; for he careth for you.</p>
-
-      <p class="verse"><span class="vnum">8</span>Be sober, be vigilant; because your adversary <span class="mk-kw">the devil</span>, <span class="mk-cp">as a roaring lion</span>, walketh about, seeking whom he may devour:</p>
-
-      <p class="verse"><span class="vnum">9</span>Whom resist stedfast in the faith, knowing that the same afflictions are accomplished in your brethren that are in the world.</p>
-
-      <p class="verse"><span class="vnum">10</span>But the <span class="mk-kw">God</span> of all <span class="mk-kw">grace</span>, who hath called us unto his eternal <span class="mk-kw">glory</span> by <span class="mk-kw">Christ Jesus</span>, <span class="mk-tm">after that ye have suffered a while</span>, <span class="mk-num">1</span>make you perfect, <span class="mk-num">2</span>stablish, <span class="mk-num">3</span>strengthen, <span class="mk-num">4</span>settle you.</p>
-
-      <p class="verse"><span class="vnum">11</span>To him be <span class="mk-kw">glory</span> and dominion <span class="mk-tm">for ever and ever</span>. Amen.</p>
-
-      <p class="verse"><span class="vnum">12</span>By Silvanus, a faithful brother unto <span class="mk-recp">you</span>, as <span class="mk-auth">I</span> suppose, <span class="mk-auth">I</span> have written briefly, exhorting, and testifying that this is the true <span class="mk-kw">grace of God</span> wherein ye stand.</p>
-
-      <p class="verse"><span class="vnum">13</span>The church that is at <span class="mk-geo">Babylon</span>, elected together with <span class="mk-recp">you</span>, saluteth <span class="mk-recp">you</span>; and so doth Marcus my son.</p>
-
-      <p class="verse"><span class="vnum">14</span>Greet ye one another with a kiss of charity. Peace be with you all that are in <span class="mk-kw">Christ Jesus</span>. Amen.</p>
-    </div>
-
-    <div class="listout-card">
-      <p class="listout-title">Pulled out: what verses 2–3 say about eldership</p>
-      <ol>
-        <li>Feed the flock of God</li>
-        <li>Take oversight willingly, not under compulsion</li>
-        <li>Serve for the right motive, not for gain</li>
-        <li>Lead by example rather than by lording it over others</li>
-      </ol>
-    </div>
-  </div>
-</section>
-
-<!-- INTERPRETATION -->
-<section class="page-section" id="ind-interpretation">
-  <div class="content">
-    <p class="section-label">Step Two</p>
-    <h2>Interpretation — What Does It Mean?</h2>
-    <div class="ornamental-rule"><span>✦ ✦ ✦</span></div>
-    <p>Observation tells you what's on the page. Interpretation is the harder work of understanding what it means, and it's where careless reading does the most damage. Six guidelines:</p>
-
-    <div class="interp-grid">
-      <div class="interp-card">
-        <div class="interp-num">01</div>
-        <h3>Context rules</h3>
-        <p>Read every verse against the verses around it, the book it's in, and the whole of Scripture. Don't pull a line out of its setting to make it say what you want.</p>
-      </div>
-      <div class="interp-card">
-        <div class="interp-num">02</div>
-        <h3>Seek the full counsel of Scripture</h3>
-        <p>Don't build a conviction on one or two isolated verses. Knowing the text broadly is what lets you recognize when a teaching doesn't hold up.</p>
-      </div>
-      <div class="interp-card">
-        <div class="interp-num">03</div>
-        <h3>Scripture doesn't contradict itself</h3>
-        <p>Where two truths seem in tension, don't resolve it by pushing either one further than the text itself does. Sometimes you hold both without full resolution.</p>
-      </div>
-      <div class="interp-card">
-        <div class="interp-num">04</div>
-        <h3>Don't build on obscure passages</h3>
-        <p>If a passage stays genuinely unclear after careful reading, it's not a solid foundation for a position, however appealing.</p>
-      </div>
-      <div class="interp-card">
-        <div class="interp-num">05</div>
-        <h3>Take the plain sense, and mind the genre</h3>
-        <p>Look for what's clearly said before hunting for a hidden meaning. Poetry and prophecy carry more figurative language than narrative or teaching, read accordingly.</p>
-      </div>
-      <div class="interp-card">
-        <div class="interp-num">06</div>
-        <h3>Look for the single meaning intended</h3>
-        <p>Unless the author himself signals a second layer, don't multiply interpretations. The goal is recovering what he meant.</p>
-      </div>
-    </div>
-
-    <div class="callout">
-      <p>Interpretation is where a method can't do the work for you. It narrows the range of responsible readings, it doesn't hand you the answer.</p>
-    </div>
-  </div>
-</section>
-
-<!-- APPLICATION -->
-<section class="page-section" id="ind-application">
-  <div class="content">
-    <p class="section-label">Step Three</p>
-    <h2>Application — What Now?</h2>
-    <div class="ornamental-rule"><span>✦ ✦ ✦</span></div>
-    <p>Application only works once you actually know what the text says and what it means. At that point the question shifts from understanding to obedience, whether you'll live differently in light of it.</p>
-    <p>The logic behind this, echoing 2 Timothy 3:16&ndash;17: Scripture teaches what's right, exposes where you're wrong, shows the way to correct it, and trains you toward right living, so you're equipped for whatever's in front of you.</p>
-  </div>
-</section>
-
-<!-- WORKED EXAMPLE -->
-<section class="page-section" id="ind-example">
-  <div class="content">
-    <p class="section-label">Illustration</p>
-    <h2>Worked Example — John 6:29&ndash;35</h2>
-    <div class="ornamental-rule"><span>✦ ✦ ✦</span></div>
-    <p>A short pass through the method on one passage.</p>
-
-    <div class="example-entry">
-      <div class="entry-header">John 6:29&ndash;35 <span>KJV</span></div>
-      <div class="entry-row row-o">
-        <div class="entry-tag">Observe</div>
-        <div class="entry-text">The crowd asks for a sign, invoking the manna their fathers ate in the wilderness. Jesus corrects the attribution: it wasn't Moses who gave that bread, but the Father, and identifies "the true bread from heaven" as the one who comes down and gives life to the world. They ask for it. He answers, <em>"I am the bread of life: he that cometh to me shall never hunger; and he that believeth on me shall never thirst."</em></div>
-      </div>
-      <div class="entry-row row-i">
-        <div class="entry-tag">Interpret</div>
-        <div class="entry-text">The contrast carries the meaning: the crowd wants more of what they already had, bread on tap, and Jesus redirects them to something categorically different. "Coming" and "believing" are placed in parallel in verse 35, suggesting they're being used as near-synonyms here, not two separate conditions.</div>
-      </div>
-      <div class="entry-row row-a">
-        <div class="entry-tag">Apply</div>
-        <div class="entry-text">The pull to want some tangible sign or "thing" to make belief easier isn't unique to that crowd. The passage pushes back on that impulse directly, Jesus presents himself as sufficient, not as one input among others toward believing.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-</div><!-- /view-inductio -->
 
 <!-- ============================================================
      VIEW: SOAQ
@@ -1287,7 +902,7 @@
 
 <footer>
   <span class="footer-brand">Scriptorium</span>
-  <p>Inductio · SOAQ · Lectio Continua</p>
+  <p>SOAQ · Lectio Continua</p>
   <p class="footer-copyright">&copy; 2026 Josh Boege. All rights reserved.</p>
 </footer>
 
@@ -1296,10 +911,10 @@
    VIEW SWITCHING
    ============================================================ */
 (function () {
-  var VIEWS = ['home', 'inductio', 'soaq', 'plan'];
+  var VIEWS = ['home', 'soaq', 'plan'];
 
   function showView(name) {
-    if (VIEWS.indexOf(name) === -1) name = 'inductio';
+    if (VIEWS.indexOf(name) === -1) name = 'home';
     VIEWS.forEach(function (v) {
       var el = document.getElementById('view-' + v);
       if (el) el.classList.toggle('active', v === name);
