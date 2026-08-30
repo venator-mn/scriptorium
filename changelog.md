@@ -1,3 +1,19 @@
+## 2026-08-30
+
+### Scriptorium (index.html)
+
+**Removed**
+- Inductio tool dropped from the site entirely: nav link, hero tagline, footer tagline, home page tool card, and the full view-inductio section (principles list, marking legend, marked passage example, interpretation grid, example entry)
+- Inductio-only CSS block (principle cards, legend grid, passage frame, mk-* marking classes, interpretation cards, example-entry/entry-row styles)
+
+**Changed**
+- Home page hub intro copy rewritten to describe two tools (SOAQ, Lectio Continua) instead of three
+- Home page tools grid changed from 3 columns to 2
+- JS view array updated to drop `inductio`; fallback view changed from `inductio` to `home`
+- Stale code comments referencing Inductio (root variables, marking-scheme colors, hub intro) updated to reflect current scope
+
+---
+
 ## 2026-08-25
 
 ### Lectio Continua
